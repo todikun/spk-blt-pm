@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="{{asset('dist/vendor/owl-carousel/css/owl.theme.default.min.css')}}">
     <link href="{{asset('dist/vendor/jqvmap/css/jqvmap.min.css')}}" rel="stylesheet">
     <link href="{{asset('dist/css/style.css')}}" rel="stylesheet">
-
-
+    <link href="{{asset('dist/css/font-awesome.min.css')}}" rel="stylesheet">
 
 </head>
 
@@ -34,6 +33,20 @@
         @include('components.sidebar')
 
         @yield('content')
+
+        <!-- Modal -->
+        <div class="modal fade" id="baseModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"></div>
+                </div>
+            </div>
+        </div>
 
         @include('components.footer')
 
@@ -68,6 +81,8 @@
     <script src="{{asset('dist/vendor/jquery.counterup/jquery.counterup.min.js')}}"></script>
 
     <script src="{{asset('dist/js/dashboard/dashboard-1.js')}}"></script>
+
+    @stack('client-script')
 
 </body>
 

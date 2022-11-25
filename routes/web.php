@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WargaController;
+use App\Http\Controllers\Master\{AspekController, KriteriaController, PersentaseController};
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('pages.index');
 });
+
+Route::group(['prefix' => 'master'], function() {
+    Route::resource('aspek', AspekController::class);
+    Route::resource('kriteria', KriteriaController::class);
+    Route::resource('persentase', PersentaseController::class);
+});
+
+Route::resource('warga', WargaController::class);
