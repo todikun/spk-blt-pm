@@ -38,12 +38,12 @@ class AspekController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode' => 'required',
+            'kode' => 'required|min:2|max:5|unique:aspek',
             'nama' => 'required'
         ]);
 
         Aspek::insert([
-            'kode' => $request->kode . rand(1111, 9999),
+            'kode' => $request->kode,
             'nama' => $request->nama,
         ]);
         return redirect()->route('aspek.index')->with('success', 'Aspek berhasil ditambahkan');
@@ -82,7 +82,7 @@ class AspekController extends Controller
     public function update(Request $request, Aspek $aspek)
     {
         $request->validate([
-            'kode' => 'required',
+            'kode' => 'required|min:2|max:5|',
             'nama' => 'required'
         ]);
 

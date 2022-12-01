@@ -35,48 +35,38 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Semua Data Kriteria</h4>
+                        <h4 class="card-title">Data Kondisi</h4>
                         <div class="justify-content-sm-end">
-                            <a href="{{route('kriteria.create')}}"
+                            <a href="{{route('kondisi.create', ['kriteria' => $kriteria->id])}}"
                                 class="btn btn-primary btn-add mb-2 ml-3 font-weight-bold">+
                                 Tambah</a>
                         </div>
                     </div>
                     <div class="card-body">
+                        {{$kriteria->nama}}, {{$kriteria->nilai_ideal}}
                         <div class="table-responsive">
                             <table class="table header-border table-responsive-sm" data-form="deleteForm">
                                 <thead>
                                     <tr>
                                         <th width="1%">#</th>
-                                        <th>Aspek</th>
-                                        <th>Nama</th>
-                                        <th>Nilai Ideal</th>
-                                        <th>Jumlah Kondisi</th>
-                                        <th>Prioritas</th>
+                                        <th>Kondisi</th>
+                                        <th>Nilai</th>
                                         <th>ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($kriteria as $item)
+                                    @forelse ($kondisi as $item)
                                     <tr class="text-dark">
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$item->aspek->nama}}</td>
                                         <td>{{$item->nama}}</td>
-                                        <td>{{$item->nilai_ideal}}</td>
-                                        <td>{{$item->kondisi->count() > 0 ? $item->kondisi->count() : '-'}}</td>
+                                        <td>{{$item->nilai}}</td>
                                         <td>
-                                            {{$item->prioritas>=60?'CF':'SF'}}
-                                        </td>
-                                        <td>
-                                            <a href="{{route('kondisi.index', ['kriteria' => $item->id])}}"
-                                                class="btn btn-xs btn-success font-weight-bold">+ Kondisi</a>
-
-                                            <a href="{{route('kriteria.edit', $item->id)}}"
+                                            <a href="{{route('kondisi.edit', $item->id)}}"
                                                 class="btn btn-xs btn-edit btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
 
-                                            <form action="{{route('kriteria.destroy', $item->id)}}" method="POST"
+                                            <form action="{{route('kondisi.destroy', $item->id)}}" method="POST"
                                                 class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -117,7 +107,7 @@
             dataType: 'HTML',
             method: 'GET',
             success: function(result) {
-                $('#baseModal').find('.modal-title').html("Tambah Kriteria");
+                $('#baseModal').find('.modal-title').html("Tambah Kondisi");
                 $('#baseModal').find('.modal-body').html(result);
                 $('#baseModal').modal('show');
             },
@@ -137,7 +127,7 @@
             dataType: 'HTML',
             method: 'GET',
             success: function(result) {
-                $('#baseModal').find('.modal-title').html("Edit Kriteria");
+                $('#baseModal').find('.modal-title').html("Edit Kondisi");
                 $('#baseModal').find('.modal-body').html(result);
                 $('#baseModal').modal('show');
             },

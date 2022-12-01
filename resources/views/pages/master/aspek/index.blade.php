@@ -59,7 +59,7 @@
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$item->kode}}</td>
                                         <td>{{$item->nama}}</td>
-                                        <td>30</td>
+                                        <td>{{$item->kriteria->count() > 0 ? $item->kriteria->count() : '-'}}</td>
                                         <td>
                                             <a href="{{route('aspek.edit', $item->id)}}"
                                                 class="btn btn-xs btn-edit btn-warning">

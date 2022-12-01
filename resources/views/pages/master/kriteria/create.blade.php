@@ -10,7 +10,6 @@
                 <option value="{{$item->id}}">{{$item->nama}}</option>
                 @endforeach
             </select>
-
         </div>
 
         <div class="form-group col-md-6">
@@ -21,6 +20,15 @@
         <div class="form-group col-md-6">
             <label>Nilai Ideal</label>
             <input type="number" name="nilai_ideal" class="form-control" placeholder="Nilai Ideal" required>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label>Priotias</label>
+            <select class="form-control" name="prioritas">
+                <option value="">PILIH</option>
+                <option value="60">CF</option>
+                <option value="40">SF</option>
+            </select>
         </div>
 
     </div>

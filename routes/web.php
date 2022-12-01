@@ -2,7 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
-use App\Http\Controllers\Master\{AspekController, KriteriaController, PersentaseController};
+use App\Http\Controllers\Master\{
+    AspekController,
+    KriteriaController,
+    KondisiController,
+    PersentaseController
+};
+use App\Http\Controllers\WargaKondisiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +25,13 @@ Route::get('/', function () {
     return view('pages.index');
 });
 
-Route::group(['prefix' => 'master'], function() {
+Route::group(['prefix' => 'master'], function () {
     Route::resource('aspek', AspekController::class);
     Route::resource('kriteria', KriteriaController::class);
+    Route::resource('kondisi', KondisiController::class);
     Route::resource('persentase', PersentaseController::class);
 });
 
+Route::get('warga/kondisi', [WargaKondisiController::class, 'create'])->name('warga.kondisi.create');
+Route::post('warga/kondisi', [WargaKondisiController::class, 'store'])->name('warga.kondisi.store');
 Route::resource('warga', WargaController::class);

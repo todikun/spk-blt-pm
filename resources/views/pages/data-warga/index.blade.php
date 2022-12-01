@@ -22,7 +22,7 @@
                                 <div class="form-group mb-2">
                                     <input type="month" class="form-control" placeholder="Periode">
                                 </div>
-                                <button type="submit" class="btn btn-primary mb-2 mr-2">Search</button>
+                                <button type="submit" class="btn btn-dark mb-2 mr-2 font-weight-bold">Search</button>
                             </form>
 
                             <a href="{{route('warga.create')}}"
@@ -35,27 +35,53 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">#</th>
+                                        <th>NIK</th>
                                         <th>Nama</th>
-                                        <th>Ttl</th>
-                                        <th>#</th>
-                                        <th>#</th>
-                                        <th>#</th>
+                                        <th>Periode</th>
+                                        <th>Item Kondisi</th>
                                         <th>ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><a href="javascript:void(0)">1</a>
+                                    @forelse ($warga as $item)
+                                    <tr class="text-dark">
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$item->nik}}</td>
+                                        <td>{{$item->nama}}</td>
+                                        <td>{{ Carbon\Carbon::parse($item->periode)->format('F Y') }}</td>
+                                        <td>
+                                            @if ($item->hasil->count() == $kriteria)
+                                            <a href="#" class="text-success"><i class="fa fa-check fa-2x"></i></a>
+                                            @else
+                                            {{$item->hasil->count()}}/{{$kriteria}}
+                                            @endif
                                         </td>
-                                        <td>Herman Beck</td>
-                                        <td><span class="text-muted">Oct 16, 2017</span>
+                                        <td>
+                                            @if ($item->hasil->count() == $kriteria)
+                                            <a href="#" class="btn btn-xs btn-success font-weight-bold">Validasi</a>
+                                            @endif
+
+                                            <a href="{{route('warga.show', $item->id)}}"
+                                                class="btn btn-xs btn-edit btn-warning">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+
+                                            <form action="{{route('warga.destroy', $item->id)}}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-xs btn-danger"
+                                                    onclick="return confirm('Apakah data ini akan dihapus?')">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
+                                            </form>
+
                                         </td>
-                                        <td>$45.00</td>
-                                        <td><span class="badge badge-success">Paid</span>
-                                        </td>
-                                        <td>EN</td>
-                                        <td>#</td>
                                     </tr>
+
+                                    @empty
+                                    <td colspan="5" class="text-center">Belum ada data</td>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>

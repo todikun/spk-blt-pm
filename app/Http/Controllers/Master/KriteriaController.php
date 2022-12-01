@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\Models\Aspek;
+use App\Models\Kondisi;
 use App\Models\Kriteria;
 use Illuminate\Http\Request;
 
@@ -42,13 +43,15 @@ class KriteriaController extends Controller
         $request->validate([
             'aspekid' => 'required',
             'nama' => 'required',
-            'nilai_ideal' => 'required|numeric'
+            'nilai_ideal' => 'required|numeric',
+            'prioritas' => 'required',
         ]);
 
         Kriteria::insert([
             'aspekid' => $request->aspekid,
             'nama' => $request->nama,
             'nilai_ideal' => $request->nilai_ideal,
+            'prioritas' => $request->prioritas,
         ]);
         return redirect()->route('kriteria.index')->with('success', 'Kriteria berhasil ditambahkan');
     }
@@ -89,7 +92,8 @@ class KriteriaController extends Controller
         $request->validate([
             'aspekid' => 'required',
             'nama' => 'required',
-            'nilai_ideal' => 'required|numeric'
+            'nilai_ideal' => 'required|numeric',
+            'prioritas' => 'required',
         ]);
 
         $kriteria = Kriteria::find($id);
@@ -97,6 +101,7 @@ class KriteriaController extends Controller
             'aspekid' => $request->aspekid,
             'nama' => $request->nama,
             'nilai_ideal' => $request->nilai_ideal,
+            'prioritas' => $request->prioritas,
         ]);
         return redirect()->route('kriteria.index')->with('success', 'Kriteria berhasil diupdate');
     }

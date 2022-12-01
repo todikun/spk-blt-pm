@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Warga extends Model
 {
     use HasFactory;
+    protected $table = 'warga';
+    protected $fillable = ['nik', 'nama', 'periode'];
+    public $timestamps = false;
+
+    public function kondisi()
+    {
+        return $this->hasMany('App\Models\Kondisi', 'wargaid', 'id');
+    }
+
+    public function hasil()
+    {
+        return $this->hasMany('App\Models\Hasil', 'wargaid', 'id');
+    }
 }

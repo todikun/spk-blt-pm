@@ -9,16 +9,12 @@
 
             <li class="nav-label">Master Data</li>
             <li>
-                <a href="{{route('aspek.index')}}" aria-expanded="false"><i class="fa fa-bookmark-o"></i><span
-                        class="nav-text">Aspek</span></a>
+                <a href="{{route('aspek.index')}}" aria-expanded="false" class="mm-active"><i
+                        class="fa fa-bookmark-o"></i><span class="nav-text">Aspek</span></a>
             </li>
             <li>
-                <a href="{{route('kriteria.index')}}" aria-expanded="false"><i class="icon icon-attach-87"></i><span
-                        class="nav-text">Kriteria</span></a>
-            </li>
-            <li>
-                <a href="{{route('persentase.index')}}" aria-expanded="false"><i class="icon icon-funnel-40"></i><span
-                        class="nav-text">Persentase CF & SF</span></a>
+                <a href="{{route('kriteria.index')}}" aria-expanded="false" class="@yield('active')"><i
+                        class="icon icon-attach-87"></i><span class="nav-text">Kriteria</span></a>
             </li>
 
             <li class="mt-3">

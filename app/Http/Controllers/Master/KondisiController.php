@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
 
-use App\Models\Hasil;
+use App\Http\Controllers\Controller;
 use App\Models\Kondisi;
 use App\Models\Kriteria;
-use App\Models\Warga;
 use Illuminate\Http\Request;
 
-class WargaController extends Controller
+class KondisiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,11 @@ class WargaController extends Controller
      */
     public function index()
     {
-        $warga = Warga::orderBy('id', 'DESC')->get();
-        $kriteria = Kriteria::all()->count();
-        return view('pages.data-warga.index', compact('warga', 'kriteria'));
+        $id = request()->get('kriteria');
+        $kriteria = Kriteria::find($id);
+        $kondisi = Kondisi::where('kriteriaid', $id)->get();
+
+        return view('pages.master.kriteria.kondisi.index', compact('kriteria', 'kondisi'));
     }
 
     /**
@@ -29,7 +30,9 @@ class WargaController extends Controller
      */
     public function create()
     {
-        return view('pages.data-warga.create');
+        $id = request()->get('kriteria');
+        $kriteria = Kriteria::find($id);
+        return view('pages.master.kriteria.kondisi.create', compact('kriteria'));
     }
 
     /**
@@ -40,19 +43,21 @@ class WargaController extends Controller
      */
     public function store(Request $request)
     {
+        $kriteria = Kriteria::find($request->kriteriaid);
+        
         $request->validate([
-            'nik' => 'required',
+            'kriteriaid' => 'required',
             'nama' => 'required',
-            'periode' => 'required',
+            'nilai' => 'required|lte:' . $kriteria->nilai_ideal,
         ]);
 
-        $warga = Warga::create([
-            'nik' => $request->nik,
+        Kondisi::create([
+            'kriteriaid' => $request->kriteriaid,
             'nama' => $request->nama,
-            'periode' => $request->periode . '-01',
+            'nilai' => $request->nilai,
         ]);
 
-        return redirect()->route('warga.show', $warga->id);
+        return back()->with('success', 'Kondisi berhasil ditambah');
     }
 
     /**
@@ -63,10 +68,7 @@ class WargaController extends Controller
      */
     public function show($id)
     {
-        $warga = Warga::find($id);
-        $hasil = Hasil::where('wargaid', $warga->id)->get();
-
-        return view('pages.data-warga.show', compact('warga', 'hasil'));
+        //
     }
 
     /**
@@ -77,8 +79,7 @@ class WargaController extends Controller
      */
     public function edit($id)
     {
-        $kondisi = Kondisi::find($id);
-        $item_kondisi = Kondisi::all($id);
+        //
     }
 
     /**
@@ -101,6 +102,8 @@ class WargaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $kondisi = Kondisi::find($id);
+        $kondisi->delete();
+        return back()->with('success', 'Kondisi berhasil dihapus');
     }
 }

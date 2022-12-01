@@ -27,6 +27,15 @@
                 value="{{old('nilai_ideal', $kriteria->nilai_ideal)}}" placeholder="Nilai Ideal" required>
         </div>
 
+        <div class="form-group col-md-6">
+            <label>Prioritas</label>
+            <select class="form-control" name="prioritas">
+                <option value="">PILIH</option>
+                <option value="60" {{$kriteria->prioritas==60 ? 'selected':''}}>CF</option>
+                <option value="40" {{$kriteria->prioritas==40 ? 'selected':''}}>SF</option>
+            </select>
+        </div>
+
     </div>
 
     <button type="submit" class="btn btn-primary font-weight-bold">Simpan</button>
