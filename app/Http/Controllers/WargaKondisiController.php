@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Hasil;
 use App\Models\Kondisi;
+use App\Models\Kriteria;
 use App\Models\Warga;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,8 @@ class WargaKondisiController extends Controller
         ]);
 
         $kondisi = Kondisi::where('id', $request->kondisiid)->first();
+        $nilaiKondisi = Kondisi::find($request->kondisiid);
+        $kriteria = Kriteria::find($kondisi->kriteriaid);
 
         // validasi kondisi
         $hasil = Hasil::where('wargaid', $request->wargaid)->where('kriteriaid', $kondisi->kriteriaid)->get();
@@ -37,7 +40,9 @@ class WargaKondisiController extends Controller
             'wargaid' => $request->wargaid,
             'kondisiid' => $request->kondisiid,
             'kriteriaid' => $kondisi->kriteriaid,
-            'nilai' => '5555',
+            'aspekid' => $kriteria->aspekid,
+            'nilai' => $nilaiKondisi->nilai,
+            'gap' => $nilaiKondisi->nilai - $kriteria->nilai_ideal,
         ]);
 
         return redirect()->route('warga.show', $request->wargaid)->with('success', 'Kondisi berhasil ditambahkan');

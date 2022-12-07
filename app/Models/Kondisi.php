@@ -9,7 +9,7 @@ class Kondisi extends Model
 {
     use HasFactory;
     protected $table = 'kondisi';
-    protected $fillable = ['wargaid', 'kriteriaid', 'nama', 'nilai'];
+    protected $guarded = [];
     public $timestamps = false;
 
     public function warga()

@@ -9,7 +9,7 @@ class Aspek extends Model
 {
     use HasFactory;
     protected $table = 'aspek';
-    protected $fillable = ['kode', 'nama'];
+    protected $guarded = [];
     public $timestamps = false;
 
     public function kriteria()

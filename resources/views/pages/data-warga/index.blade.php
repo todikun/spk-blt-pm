@@ -58,7 +58,8 @@
                                         </td>
                                         <td>
                                             @if ($item->hasil->count() == $kriteria)
-                                            <a href="#" class="btn btn-xs btn-success font-weight-bold">Validasi</a>
+                                            <a href="{{route('warga.validasi', ['warga' => $item->id, ''])}}"
+                                                class="btn btn-xs btn-success font-weight-bold">Validasi</a>
                                             @endif
 
                                             <a href="{{route('warga.show', $item->id)}}"

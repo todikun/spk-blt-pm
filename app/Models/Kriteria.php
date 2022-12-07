@@ -9,7 +9,7 @@ class Kriteria extends Model
 {
     use HasFactory;
     protected $table = 'kriteria';
-    protected $fillable = ['aspekid', 'nama', 'nilai_ideal', 'prioritas'];
+    protected $guarded = [];
     public $timestamps = false;
 
     public function aspek()
@@ -20,5 +20,11 @@ class Kriteria extends Model
     public function kondisi()
     {
         return $this->hasMany('App\Models\Kondisi', 'kriteriaid', 'id');
+    }
+
+
+    public function hasil()
+    {
+        return $this->hasMany('App\Models\Hasil', 'kondisiid', 'id');
     }
 }
