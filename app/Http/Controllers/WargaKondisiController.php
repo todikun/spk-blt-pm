@@ -54,6 +54,6 @@ class WargaKondisiController extends Controller
     {
         $hasil = Hasil::find($id);
         $hasil->delete();
-        return back()->with('success', '');
+        return back()->with('success', 'Kondisi berhasil dihapus');
     }
 }

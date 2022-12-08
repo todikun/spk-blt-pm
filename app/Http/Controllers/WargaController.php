@@ -17,7 +17,7 @@ class WargaController extends Controller
      */
     public function index()
     {
-        $warga = Warga::orderBy('id', 'DESC')->get();
+        $warga = Warga::where('is_validasi', false)->get();
         $kriteria = Kriteria::all()->count();
         return view('pages.data-warga.index', compact('warga', 'kriteria'));
     }

@@ -27,8 +27,7 @@ class PerangkinganController extends Controller
         $rata_rata = 0;
         $sum = 0;
 
-        // dd($aspekItem[0][0]->id);
-
+        // Rumus
         for ($i = 0; $i < sizeof($aspek); $i++) {
             foreach ($nilai as $item) {
                 $tempSf = [];
@@ -50,6 +49,10 @@ class PerangkinganController extends Controller
                 'total' => 0,
             ]);
         }
+
+        $warga->update([
+            'is_validasi' => true,
+        ]);
 
         return back()
             ->with('success', 'Warga dengan nama : ' . $warga->nama . ' [NIK : ' . $warga->nik . '] berhasil divalidasi!');
