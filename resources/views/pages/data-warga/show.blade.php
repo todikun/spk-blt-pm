@@ -44,9 +44,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Data Kondisi Warga</h4>
+                        @if ($hasil->count() < $kriteria->count())
                         <a href="{{route('warga.kondisi.create', ['warga' => $warga->id])}}"
                             class="btn btn-primary btn-add mb-2 ml-3 font-weight-bold">+ Tambah
                         </a>
+                        @endif
                     </div>
                     <div class="card-body">
                         Nama Warga : {{$warga->nama}}, NIK : {{$warga->nik}}, Periode : {{$warga->periode}}

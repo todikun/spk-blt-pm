@@ -65,8 +65,9 @@ class WargaController extends Controller
     {
         $warga = Warga::find($id);
         $hasil = Hasil::where('wargaid', $warga->id)->get();
+        $kriteria = Kriteria::get();
 
-        return view('pages.data-warga.show', compact('warga', 'hasil'));
+        return view('pages.data-warga.show', compact('warga', 'hasil', 'kriteria'));
     }
 
     /**
