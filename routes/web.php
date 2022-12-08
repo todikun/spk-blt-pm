@@ -8,7 +8,7 @@ use App\Http\Controllers\Master\{
     KondisiController,
     PersentaseController
 };
-use App\Http\Controllers\PerangkinganController;
+use App\Http\Controllers\PembobotanController;
 use App\Http\Controllers\WargaKondisiController;
 
 /*
@@ -32,7 +32,7 @@ Route::group(['prefix' => 'master'], function () {
     Route::resource('kondisi', KondisiController::class);
 });
 
-Route::get('warga/validasi', [PerangkinganController::class, 'hitung'])->name('warga.validasi');
+Route::get('warga/validasi', [PembobotanController::class, 'hitung'])->name('warga.validasi');
 Route::get('warga/kondisi', [WargaKondisiController::class, 'create'])->name('warga.kondisi.create');
 Route::post('warga/kondisi', [WargaKondisiController::class, 'store'])->name('warga.kondisi.store');
 Route::resource('warga', WargaController::class);

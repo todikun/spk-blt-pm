@@ -16,4 +16,9 @@ class Aspek extends Model
     {
         return $this->hasMany('App\Models\Kriteria', 'aspekid', 'id');
     }
+
+    public function warga()
+    {
+        return $this->hasMany('App\Models\Hasil', 'aspekid', 'id');
+    }
 }

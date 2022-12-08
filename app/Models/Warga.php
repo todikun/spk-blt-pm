@@ -21,4 +21,9 @@ class Warga extends Model
     {
         return $this->hasMany('App\Models\Hasil', 'wargaid', 'id');
     }
+
+    public function aspek()
+    {
+        return $this->belongsTo('App\Models\Aspek', 'aspekid', 'id');
+    }
 }

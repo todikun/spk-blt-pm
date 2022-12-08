@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Aspek;
 use App\Models\Hasil;
 use App\Models\Kriteria;
-use App\Models\Perangkingan;
+use App\Models\Pembobotan;
 use App\Models\Warga;
 use Illuminate\Http\Request;
 
-class PerangkinganController extends Controller
+class PembobotanController extends Controller
 {
     public function hitung()
     {
@@ -24,8 +24,7 @@ class PerangkinganController extends Controller
         $tempSf = array();
         $cf = array();
         $sf = array();
-        $rata_rata = 0;
-        $sum = 0;
+        $result = array();
 
         // Rumus
         for ($i = 0; $i < sizeof($aspek); $i++) {
@@ -40,18 +39,19 @@ class PerangkinganController extends Controller
                     $sf = array_sum($tempSf) / sizeof($tempSf);
                 }
             }
-
-            Perangkingan::create([
+            $bobot = ((60 * $cf) / 100) + ((40 * $sf) / 100);
+            Pembobotan::create([
                 'wargaid' => $id,
                 'cf_aspek' => $cf,
                 'sf_aspek' => $sf,
-                'rata_rata' => 0,
-                'total' => 0,
+                'rata_rata' => $bobot,
+                'total' => (50 * $bobot) / 100,
             ]);
         }
 
         $warga->update([
             'is_validasi' => true,
+            'nilai_akhir' => Pembobotan::where('wargaid', $id)->get()->sum('total'),
         ]);
 
         return back()
