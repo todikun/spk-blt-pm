@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\Master\{
@@ -22,20 +24,29 @@ use App\Http\Controllers\WargaKondisiController;
 |
 */
 
+Route::get('login', [LoginController::class, 'login'])->name('login');
+Route::post('login', [LoginController::class, 'actionLogin'])->name('login.action');
+
 Route::get('/', function () {
-    return view('pages.index');
+    return redirect('dashboard');
 });
 
-Route::group(['prefix' => 'master'], function () {
-    Route::resource('aspek', AspekController::class);
-    Route::resource('kriteria', KriteriaController::class);
-    Route::resource('kondisi', KondisiController::class);
+
+Route::middleware('auth')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::group(['prefix' => 'master'], function () {
+        Route::resource('aspek', AspekController::class);
+        Route::resource('kriteria', KriteriaController::class);
+        Route::resource('kondisi', KondisiController::class);
+    });
+
+    Route::get('warga/validasi', [PembobotanController::class, 'hitung'])->name('warga.validasi');
+    Route::get('warga/kondisi', [WargaKondisiController::class, 'create'])->name('warga.kondisi.create');
+    Route::post('warga/kondisi/', [WargaKondisiController::class, 'store'])->name('warga.kondisi.store');
+    Route::delete('warga/kondisi/{kondisi}', [WargaKondisiController::class, 'destroy'])->name('warga.kondisi.destroy');
+
+    Route::get('warga/search', [WargaController::class, 'search'])->name('warga.search');
+    Route::resource('warga', WargaController::class);
 });
-
-Route::get('warga/validasi', [PembobotanController::class, 'hitung'])->name('warga.validasi');
-Route::get('warga/kondisi', [WargaKondisiController::class, 'create'])->name('warga.kondisi.create');
-Route::post('warga/kondisi/', [WargaKondisiController::class, 'store'])->name('warga.kondisi.store');
-Route::delete('warga/kondisi/{kondisi}', [WargaKondisiController::class, 'destroy'])->name('warga.kondisi.destroy');
-
-Route::get('warga/search', [WargaController::class, 'search'])->name('warga.search');
-Route::resource('warga', WargaController::class);

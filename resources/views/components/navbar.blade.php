@@ -1,5 +1,5 @@
 <div class="nav-header">
-    <a href="index.html" class="brand-logo">
+    <a href="{{route('dashboard')}}" class="brand-logo">
         <p class="brand-title">Profile Matching</p>
     </a>
 
@@ -23,7 +23,7 @@
                             <i class="mdi mdi-account"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="./page-login.html" class="dropdown-item">
+                            <a href="{{route('logout')}}" class="dropdown-item">
                                 <i class="icon-key"></i>
                                 <span class="ml-2">Logout </span>
                             </a>
