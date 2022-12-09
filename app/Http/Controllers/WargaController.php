@@ -25,7 +25,9 @@ class WargaController extends Controller
                 ->whereYear('periode', Carbon::parse($periode)->format('Y'))
                 ->where('is_validasi', false)->orderBy('id', 'DESC')->get();
         } else {
-            $warga = Warga::where('is_validasi', false)->orderBy('id', 'DESC')->get();
+            $warga = Warga::whereMonth('periode', Carbon::now()->format('m'))
+                ->whereYear('periode', Carbon::now()->format('Y'))
+                ->where('is_validasi', false)->orderBy('id', 'DESC')->get();
         }
 
         $kriteria = Kriteria::all()->count();
