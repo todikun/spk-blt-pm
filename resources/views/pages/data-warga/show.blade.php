@@ -45,13 +45,24 @@
                     <div class="card-header">
                         <h4 class="card-title">Data Kondisi Warga</h4>
                         @if ($hasil->count() < $kriteria->count())
-                        <a href="{{route('warga.kondisi.create', ['warga' => $warga->id])}}"
-                            class="btn btn-primary btn-add mb-2 ml-3 font-weight-bold">+ Tambah
-                        </a>
-                        @endif
+                            <a href="{{route('warga.kondisi.create', ['warga' => $warga->id])}}"
+                                class="btn btn-primary btn-add mb-2 ml-3 font-weight-bold">+ Tambah
+                            </a>
+                            @endif
                     </div>
                     <div class="card-body">
-                        Nama Warga : {{$warga->nama}}, NIK : {{$warga->nik}}, Periode : {{$warga->periode}}
+                        <div class="d-flex text-black-50 col-md-4">
+                            <div>
+                                <p>NIK</p>
+                                <p>Nama</p>
+                                <p>Periode</p>
+                            </div>
+                            <div class="mx-auto">
+                                <p> : {{$warga->nik}}</p>
+                                <p> : {{$warga->nama}}</p>
+                                <p> : {{ Carbon\Carbon::parse($warga->periode)->format('F Y') }}</p>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table header-border table-responsive-sm">
                                 <thead>
@@ -70,7 +81,17 @@
                                         <td>{{$item->kondisi->kriteria->nama}}</td>
                                         <td>{{$item->kondisi->nama}}</td>
                                         <td>{{$item->kondisi->nilai}}</td>
-                                        <td>#</td>
+                                        <td>
+                                            <form action="{{route('warga.kondisi.destroy',  $item->id)}}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-xs btn-danger"
+                                                    onclick="return confirm('Apakah data ini akan dihapus?')">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                     @empty
                                     <td colspan="5" class="text-center">Kondisi masih kosong</td>

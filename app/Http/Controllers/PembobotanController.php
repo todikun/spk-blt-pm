@@ -24,7 +24,6 @@ class PembobotanController extends Controller
         $tempSf = array();
         $cf = array();
         $sf = array();
-        $result = array();
 
         // Rumus
         for ($i = 0; $i < sizeof($aspek); $i++) {
@@ -45,7 +44,7 @@ class PembobotanController extends Controller
                 'cf_aspek' => $cf,
                 'sf_aspek' => $sf,
                 'rata_rata' => $bobot,
-                'total' => (50 * $bobot) / 100,
+                'total' => $bobot / sizeof($aspek),
             ]);
         }
 

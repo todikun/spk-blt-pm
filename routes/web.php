@@ -34,5 +34,8 @@ Route::group(['prefix' => 'master'], function () {
 
 Route::get('warga/validasi', [PembobotanController::class, 'hitung'])->name('warga.validasi');
 Route::get('warga/kondisi', [WargaKondisiController::class, 'create'])->name('warga.kondisi.create');
-Route::post('warga/kondisi', [WargaKondisiController::class, 'store'])->name('warga.kondisi.store');
+Route::post('warga/kondisi/', [WargaKondisiController::class, 'store'])->name('warga.kondisi.store');
+Route::delete('warga/kondisi/{kondisi}', [WargaKondisiController::class, 'destroy'])->name('warga.kondisi.destroy');
+
+Route::get('warga/search', [WargaController::class, 'search'])->name('warga.search');
 Route::resource('warga', WargaController::class);

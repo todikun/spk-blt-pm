@@ -9,7 +9,7 @@
                 <option value="">PILIH</option>
                 @foreach ($kondisi as $item)
                 <option value="{{$item->id}}">
-                    {{$item->kriteria->nama}}
+                    {{$loop->iteration . '. ' .$item->kriteria->nama}}
                     ({{$item->nama}})
                 </option>
                 @endforeach

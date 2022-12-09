@@ -6,6 +6,7 @@ use App\Models\Hasil;
 use App\Models\Kondisi;
 use App\Models\Kriteria;
 use App\Models\Warga;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class WargaController extends Controller
@@ -17,7 +18,16 @@ class WargaController extends Controller
      */
     public function index()
     {
-        $warga = Warga::where('is_validasi', false)->get();
+        $periode = request()->get('periode');
+
+        if ($periode) {
+            $warga = Warga::whereMonth('periode', Carbon::parse($periode)->format('m'))
+                ->whereYear('periode', Carbon::parse($periode)->format('Y'))
+                ->where('is_validasi', false)->orderBy('id', 'DESC')->get();
+        } else {
+            $warga = Warga::where('is_validasi', false)->orderBy('id', 'DESC')->get();
+        }
+
         $kriteria = Kriteria::all()->count();
         return view('pages.data-warga.index', compact('warga', 'kriteria'));
     }
@@ -102,6 +112,14 @@ class WargaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $warga = Warga::find($id);
+        $warga->delete();
+
+        return redirect()->route('warga.index')->with('success', 'Warga berhasil dihapus');
+    }
+
+    public function search(Request $request)
+    {
+        return redirect()->route('warga.index', ['periode' => $request->periode]);
     }
 }

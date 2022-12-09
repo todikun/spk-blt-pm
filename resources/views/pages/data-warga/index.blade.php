@@ -47,11 +47,10 @@
                     <div class="card-header">
                         <h4 class="card-title">Semua Data Warga</h4>
                         <div class="justify-content-sm-end d-inline-flex">
-                            <form action="#" method="GET" class="form-inline">
-                                @csrf
+                            <form action="{{route('warga.search')}}" method="GET" class="form-inline">
 
                                 <div class="form-group mb-2">
-                                    <input type="month" class="form-control" placeholder="Periode">
+                                    <input type="month" class="form-control" name="periode" placeholder="Periode">
                                 </div>
                                 <button type="submit" class="btn btn-dark mb-2 mr-2 font-weight-bold">Search</button>
                             </form>
@@ -90,7 +89,8 @@
                                         <td>
                                             @if ($item->hasil->count() == $kriteria)
                                             <a href="{{route('warga.validasi', ['warga' => $item->id, ''])}}"
-                                                class="btn btn-xs btn-success font-weight-bold">Validasi</a>
+                                                class="btn btn-xs btn-success font-weight-bold"
+                                                onclick="return confirm('Apakah data ini akan divalidasi?')">Validasi</a>
                                             @endif
 
                                             <a href="{{route('warga.show', $item->id)}}"
@@ -112,7 +112,7 @@
                                     </tr>
 
                                     @empty
-                                    <td colspan="5" class="text-center">Belum ada data</td>
+                                    <td colspan="50%" class="text-center">Belum ada data</td>
                                     @endforelse
                                 </tbody>
                             </table>
