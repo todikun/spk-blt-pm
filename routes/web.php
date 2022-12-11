@@ -48,5 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('warga/kondisi/{kondisi}', [WargaKondisiController::class, 'destroy'])->name('warga.kondisi.destroy');
 
     Route::get('warga/search', [WargaController::class, 'search'])->name('warga.search');
+    Route::get('warga/result', [WargaController::class, 'result'])->name('warga.result');
+    Route::get('warga/laporan', [WargaController::class, 'laporan'])->name('warga.laporan');
     Route::resource('warga', WargaController::class);
 });

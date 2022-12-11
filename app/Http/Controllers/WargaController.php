@@ -8,6 +8,7 @@ use App\Models\Kriteria;
 use App\Models\Warga;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PDF;
 
 class WargaController extends Controller
 {
@@ -18,17 +19,11 @@ class WargaController extends Controller
      */
     public function index()
     {
-        $periode = request()->get('periode');
+        $periode = request()->get('periode') ?? Carbon::now();
 
-        if ($periode) {
-            $warga = Warga::whereMonth('periode', Carbon::parse($periode)->format('m'))
-                ->whereYear('periode', Carbon::parse($periode)->format('Y'))
-                ->where('is_validasi', false)->orderBy('id', 'DESC')->get();
-        } else {
-            $warga = Warga::whereMonth('periode', Carbon::now()->format('m'))
-                ->whereYear('periode', Carbon::now()->format('Y'))
-                ->where('is_validasi', false)->orderBy('id', 'DESC')->get();
-        }
+        $warga = Warga::whereMonth('periode', Carbon::parse($periode)->format('m'))
+            ->whereYear('periode', Carbon::parse($periode)->format('Y'))
+            ->where('is_validasi', false)->orderBy('id', 'DESC')->get();
 
         $kriteria = Kriteria::all()->count();
         return view('pages.data-warga.index', compact('warga', 'kriteria'));
@@ -122,6 +117,40 @@ class WargaController extends Controller
 
     public function search(Request $request)
     {
-        return redirect()->route('warga.index', ['periode' => $request->periode]);
+        $type = $request->type;
+        if ($type == 'index') {
+            return redirect()->route('warga.index', ['periode' => $request->periode]);
+        } else {
+            return redirect()->route('warga.result', ['periode' => $request->periode]);
+        }
+    }
+
+    public function result()
+    {
+        $periode = request()->get('periode') ?? Carbon::now();
+
+        $warga = Warga::whereMonth('periode', Carbon::parse($periode)->format('m'))
+            ->whereYear('periode', Carbon::parse($periode)->format('Y'))
+            ->where('is_validasi', true)->where('nilai_akhir', '<>', 0)->orderBy('nilai_akhir', 'DESC')->get();
+
+        return view('pages.data-warga.result', compact('warga', 'periode'));
+    }
+
+    public function laporan()
+    {
+        $periode = request()->get('periode') ?? Carbon::now();
+
+        $warga = Warga::whereMonth('periode', Carbon::parse($periode)->format('m'))
+            ->whereYear('periode', Carbon::parse($periode)->format('Y'))
+            ->where('is_validasi', true)->where('nilai_akhir', '<>', 0)->orderBy('nilai_akhir', 'DESC')->get();
+
+        if (sizeof($warga) == 0) {
+            return back()->with('error', 'Data pada periode ' . Carbon::parse($periode)->format('F Y') . ' belum ada!');
+        }
+
+        $pdf = PDF::loadview('pages.data-warga.laporan', ['warga' => $warga, 'periode' => $periode])
+            ->setPaper('A4', 'potrait');
+
+        return $pdf->download('BLT Periode [' . Carbon::parse($periode)->format('F Y') . '].pdf');
     }
 }

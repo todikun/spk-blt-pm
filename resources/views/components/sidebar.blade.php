@@ -25,13 +25,10 @@
 
             <li class="nav-label">Perangkingan</li>
             <li>
-                <a href="widget-basic.html" aria-expanded="false"><i class="icon icon-analytics"></i><span
+                <a href="{{route('warga.result')}}" aria-expanded="false"><i class="icon icon-analytics"></i><span
                         class="nav-text">Result</span></a>
             </li>
-            <li>
-                <a href="widget-basic.html" aria-expanded="false"><i class="fa fa-file-o"></i><span
-                        class="nav-text">Laporan</span></a>
-            </li>
+
         </ul>
     </div>
 </div>

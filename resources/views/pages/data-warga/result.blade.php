@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Data Warga')
+@section('title', 'Hasil Seleksi Warga')
 
 @section('content')
 
@@ -8,7 +8,6 @@
 
 <div class="content-body">
     <div class="container-fluid">
-
 
         @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show">
@@ -45,19 +44,21 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Semua Data Warga</h4>
+                        <h4 class="card-title">Hasil seleksi warga penerima BLT periode {{
+                            Carbon\Carbon::parse($periode)->format('F Y') }}</h4>
                         <div class="justify-content-sm-end d-inline-flex">
                             <form action="{{route('warga.search')}}" method="GET" class="form-inline">
 
-                                <input type="hidden" name="type" value="index">
+                                <input type="hidden" name="type" value="result">
                                 <div class="form-group mb-2">
                                     <input type="month" class="form-control" name="periode" placeholder="Periode">
                                 </div>
                                 <button type="submit" class="btn btn-dark mb-2 mr-2 font-weight-bold">Search</button>
                             </form>
 
-                            <a href="{{route('warga.create')}}"
-                                class="btn btn-primary btn-add mb-2 ml-3 font-weight-bold">+ Tambah</a>
+                            <a href="{{route('warga.laporan', ['periode' => $periode])}}"
+                                class="btn btn-danger mb-2 ml-3 font-weight-bold">Export to PDF
+                            </a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -68,48 +69,16 @@
                                         <th width="1%">#</th>
                                         <th>NIK</th>
                                         <th>Nama</th>
-                                        <th>Periode</th>
-                                        <th>Item Kondisi</th>
-                                        <th>ACTION</th>
+                                        <th>Nilai</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($warga as $item)
-                                    <tr class="text-dark">
+                                    <tr class="text-dark {{$loop->iteration <= 3 ? 'alert alert-success' : ''}}">
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$item->nik}}</td>
                                         <td>{{$item->nama}}</td>
-                                        <td>{{ Carbon\Carbon::parse($item->periode)->format('F Y') }}</td>
-                                        <td>
-                                            @if ($item->hasil->count() == $kriteria)
-                                            <a href="#" class="text-success"><i class="fa fa-check fa-2x"></i></a>
-                                            @else
-                                            {{$item->hasil->count()}}/{{$kriteria}}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($item->hasil->count() == $kriteria)
-                                            <a href="{{route('warga.validasi', ['warga' => $item->id, ''])}}"
-                                                class="btn btn-xs btn-success font-weight-bold"
-                                                onclick="return confirm('Apakah data ini akan divalidasi?')">Validasi</a>
-                                            @endif
-
-                                            <a href="{{route('warga.show', $item->id)}}"
-                                                class="btn btn-xs btn-edit btn-warning">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-
-                                            <form action="{{route('warga.destroy', $item->id)}}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-xs btn-danger"
-                                                    onclick="return confirm('Apakah data ini akan dihapus?')">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </button>
-                                            </form>
-
-                                        </td>
+                                        <td>{{$item->nilai_akhir}}</td>
                                     </tr>
 
                                     @empty
