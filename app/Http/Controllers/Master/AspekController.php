@@ -46,7 +46,9 @@ class AspekController extends Controller
             'kode' => $request->kode,
             'nama' => $request->nama,
         ]);
-        return redirect()->route('aspek.index')->with('success', 'Aspek berhasil ditambahkan');
+
+        notify()->success('Aspek berhasil disimpan', 'Success');
+        return redirect()->route('aspek.index');
     }
 
     /**
@@ -90,7 +92,9 @@ class AspekController extends Controller
             'kode' => $request->kode,
             'nama' => $request->nama,
         ]);
-        return redirect()->route('aspek.index')->with('success', 'Aspek berhasil diupdate');
+
+        notify()->success('Aspek berhasil diupdate', 'Success');
+        return redirect()->route('aspek.index');
     }
 
     /**
@@ -104,6 +108,7 @@ class AspekController extends Controller
         $aspek = Aspek::find($id);
         $aspek->delete();
 
-        return redirect()->route('aspek.index')->with('success', 'Aspek berhasil dihapus');
+        notify()->success('Aspek berhasil dihapus', 'Success');
+        return redirect()->route('aspek.index');
     }
 }

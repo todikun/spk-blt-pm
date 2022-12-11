@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('warga/search', [WargaController::class, 'search'])->name('warga.search');
     Route::get('warga/result', [WargaController::class, 'result'])->name('warga.result');
+    Route::get('warga/result/{id}', [WargaController::class, 'resultDetail'])->name('warga.result.show');
     Route::get('warga/laporan', [WargaController::class, 'laporan'])->name('warga.laporan');
     Route::resource('warga', WargaController::class);
 });

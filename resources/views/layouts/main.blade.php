@@ -14,6 +14,7 @@
     <link href="{{asset('dist/css/style.css')}}" rel="stylesheet">
     <link href="{{asset('dist/css/font-awesome.min.css')}}" rel="stylesheet">
 
+    @notifyCss
 </head>
 
 <body>
@@ -81,6 +82,8 @@
     <script src="{{asset('dist/vendor/jquery.counterup/jquery.counterup.min.js')}}"></script>
 
     <script src="{{asset('dist/js/dashboard/dashboard-1.js')}}"></script>
+
+    @notifyJs
 
     @stack('client-script')
 

@@ -38,7 +38,7 @@ class PembobotanController extends Controller
                     $sf = array_sum($tempSf) / sizeof($tempSf);
                 }
             }
-            $bobot = ((60 * $cf) / 100) + ((40 * $sf) / 100);
+            $bobot = (0.6 * $cf + 0.4 * $sf);
             Pembobotan::create([
                 'wargaid' => $id,
                 'cf_aspek' => $cf,
@@ -53,7 +53,7 @@ class PembobotanController extends Controller
             'nilai_akhir' => Pembobotan::where('wargaid', $id)->get()->sum('total'),
         ]);
 
-        return back()
-            ->with('success', 'Warga dengan nama : ' . $warga->nama . ' [NIK : ' . $warga->nik . '] berhasil divalidasi!');
+        notify()->success('Validasi berhasil', 'Success');
+        return back();
     }
 }

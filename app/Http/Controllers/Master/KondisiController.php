@@ -44,7 +44,7 @@ class KondisiController extends Controller
     public function store(Request $request)
     {
         $kriteria = Kriteria::find($request->kriteriaid);
-        
+
         $request->validate([
             'kriteriaid' => 'required',
             'nama' => 'required',
@@ -57,7 +57,8 @@ class KondisiController extends Controller
             'nilai' => $request->nilai,
         ]);
 
-        return back()->with('success', 'Kondisi berhasil ditambah');
+        notify()->success('Kondisi berhasil disimpan', 'Success');
+        return back();
     }
 
     /**
@@ -104,6 +105,8 @@ class KondisiController extends Controller
     {
         $kondisi = Kondisi::find($id);
         $kondisi->delete();
-        return back()->with('success', 'Kondisi berhasil dihapus');
+
+        notify()->success('Kondisi berhasil dihapus', 'Success');
+        return back();
     }
 }

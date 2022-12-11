@@ -70,15 +70,22 @@
                                         <th>NIK</th>
                                         <th>Nama</th>
                                         <th>Nilai</th>
+                                        <th>ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($warga as $item)
-                                    <tr class="text-dark {{$loop->iteration <= 3 ? 'alert alert-success' : ''}}">
+                                    <tr class="text-dark ">
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$item->nik}}</td>
                                         <td>{{$item->nama}}</td>
                                         <td>{{$item->nilai_akhir}}</td>
+                                        <td>
+                                            <a href="{{route('warga.result.show', $item->id)}}"
+                                                class="btn btn-xs btn-detail btn-outline-light">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
                                     </tr>
 
                                     @empty
@@ -110,6 +117,26 @@
             method: 'GET',
             success: function(result) {
                 $('#baseModal').find('.modal-title').html("Tambah Warga");
+                $('#baseModal').find('.modal-body').html(result);
+                $('#baseModal').modal('show');
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    });
+
+    // event button detail
+        $('.btn-detail').on('click', function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+
+        $.ajax({
+            url: url,
+            dataType: 'HTML',
+            method: 'GET',
+            success: function(result) {
+                $('#baseModal').find('.modal-title').html("Detail Warga");
                 $('#baseModal').find('.modal-body').html(result);
                 $('#baseModal').modal('show');
             },

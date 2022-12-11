@@ -1,4 +1,8 @@
 <div class="nav-header">
+
+    <!-- Notify -->
+    <x:notify-messages />
+
     <a href="{{route('dashboard')}}" class="brand-logo">
         <p class="brand-title">Profile Matching</p>
     </a>

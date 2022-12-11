@@ -9,25 +9,6 @@
 <div class="content-body">
     <div class="container-fluid">
 
-
-        @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show">
-            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i
-                        class="mdi mdi-close"></i></span>
-            </button>
-            <strong>{{session('success')}}</strong>
-        </div>
-        @endif
-
-        @if (session('error'))
-        <div class="alert alert-danger alert-dismissible fade show text-white">
-            <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i
-                        class="mdi mdi-close"></i></span>
-            </button>
-            <strong>{{session('error')}}</strong>
-        </div>
-        @endif
-
         @if ($errors->any())
         <div class="alert alert-danger alert-dismissible fade show">
             <button type="button" class="close h-100 text-white" data-dismiss="alert" aria-label="Close"><span><i

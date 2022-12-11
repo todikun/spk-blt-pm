@@ -59,6 +59,7 @@ class WargaController extends Controller
             'periode' => $request->periode . '-01',
         ]);
 
+        notify()->success('Warga berhasil disimpan', 'Success');
         return redirect()->route('warga.show', $warga->id);
     }
 
@@ -112,7 +113,8 @@ class WargaController extends Controller
         $warga = Warga::find($id);
         $warga->delete();
 
-        return redirect()->route('warga.index')->with('success', 'Warga berhasil dihapus');
+        notify()->success('Warga berhasil dihapus', 'Success');
+        return redirect()->route('warga.index');
     }
 
     public function search(Request $request)
@@ -136,6 +138,14 @@ class WargaController extends Controller
         return view('pages.data-warga.result', compact('warga', 'periode'));
     }
 
+    public function resultDetail($id)
+    {
+        $warga = Warga::find($id);
+        $hasil = Hasil::where('wargaid', $warga->id)->get();
+
+        return view('pages.data-warga.result-show', compact('warga', 'hasil'));
+    }
+
     public function laporan()
     {
         $periode = request()->get('periode') ?? Carbon::now();
@@ -145,7 +155,8 @@ class WargaController extends Controller
             ->where('is_validasi', true)->where('nilai_akhir', '<>', 0)->orderBy('nilai_akhir', 'DESC')->get();
 
         if (sizeof($warga) == 0) {
-            return back()->with('error', 'Data pada periode ' . Carbon::parse($periode)->format('F Y') . ' belum ada!');
+            notify()->warning('Data pada periode ' . Carbon::parse($periode)->format('F Y') . ' belum ada!', 'Warning');
+            return back();
         }
 
         $pdf = PDF::loadview('pages.data-warga.laporan', ['warga' => $warga, 'periode' => $periode])

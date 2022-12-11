@@ -53,6 +53,8 @@ class KriteriaController extends Controller
             'nilai_ideal' => $request->nilai_ideal,
             'prioritas' => $request->prioritas,
         ]);
+
+        notify()->success('Kriteria berhasil disimpan', 'Success');
         return redirect()->route('kriteria.index')->with('success', 'Kriteria berhasil ditambahkan');
     }
 
@@ -103,6 +105,8 @@ class KriteriaController extends Controller
             'nilai_ideal' => $request->nilai_ideal,
             'prioritas' => $request->prioritas,
         ]);
+
+        notify()->success('Kriteria berhasil diupdate', 'Success');
         return redirect()->route('kriteria.index')->with('success', 'Kriteria berhasil diupdate');
     }
 
@@ -116,6 +120,8 @@ class KriteriaController extends Controller
     {
         $kriteria = Kriteria::find($id);
         $kriteria->delete();
-        return redirect()->route('kriteria.index')->with('success', 'Kriteria berhasil dihapus');
+
+        notify()->success('Kriteria berhasil dihapus', 'Success');
+        return redirect()->route('kriteria.index');
     }
 }

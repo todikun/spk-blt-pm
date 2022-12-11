@@ -9,23 +9,17 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('dist/images/favicon.png')}}">
     <link href="{{asset('dist/css/style.css')}}" rel="stylesheet">
-
+    @notifyCss
 </head>
 
 <body class="h-100">
+
+    <x:notify-messages />
+
     <div class="authincation h-100">
         <div class="container-fluid h-100">
             <div class="row justify-content-center h-100 align-items-center">
                 <div class="col-md-6">
-
-                    @if (session('error'))
-                    <div class="alert alert-danger alert-dismissible fade show text-white">
-                        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i
-                                    class="mdi mdi-close"></i></span>
-                        </button>
-                        <strong>{{session('error')}}</strong>
-                    </div>
-                    @endif
 
                     @if ($errors->any())
                     <div class="alert alert-danger alert-dismissible fade show">
@@ -75,7 +69,7 @@
     <script src="./vendor/global/global.min.js"></script>
     <script src="./js/quixnav-init.js"></script>
     <script src="./js/custom.min.js"></script>
-
+    @notifyJs
 </body>
 
 </html>

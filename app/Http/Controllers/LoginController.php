@@ -28,7 +28,7 @@ class LoginController extends Controller
             return redirect()->intended('/dashboard');
         }
 
-        Session::flash('error', 'Username atau Password Salah');
+        notify()->warning('Username atau Password salah!', 'Warning');
         return redirect(route('login'));
     }
 
