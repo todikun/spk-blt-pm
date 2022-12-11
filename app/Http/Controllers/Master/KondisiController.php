@@ -69,7 +69,7 @@ class KondisiController extends Controller
      */
     public function show($id)
     {
-        //
+        return abort(403);
     }
 
     /**
@@ -80,7 +80,8 @@ class KondisiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $kondisi = Kondisi::find($id);
+        return view('pages.master.kriteria.kondisi.edit', compact('kondisi'));
     }
 
     /**
@@ -92,7 +93,20 @@ class KondisiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $kondisi = Kondisi::find($id);
+        
+        $request->validate([
+            'nama' => 'required',
+            'nilai' => 'required|lte:' . $kondisi->kriteria->nilai_ideal,
+        ]);
+
+        $kondisi->update([
+            'nama' => $request->nama,
+            'nilai' => $request->nilai,
+        ]);
+
+        notify()->success('Kondisi berhasil diupdate', 'Success');
+        return back();
     }
 
     /**

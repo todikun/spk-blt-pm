@@ -54,8 +54,8 @@ class KriteriaController extends Controller
             'prioritas' => $request->prioritas,
         ]);
 
-        notify()->success('Kriteria berhasil disimpan', 'Success');
-        return redirect()->route('kriteria.index')->with('success', 'Kriteria berhasil ditambahkan');
+        notify()->success('Kriteria berhasil disimpan', 'Success');    
+        return back();
     }
 
     /**
@@ -66,7 +66,7 @@ class KriteriaController extends Controller
      */
     public function show($id)
     {
-        //
+        return abort(403);
     }
 
     /**
@@ -107,7 +107,7 @@ class KriteriaController extends Controller
         ]);
 
         notify()->success('Kriteria berhasil diupdate', 'Success');
-        return redirect()->route('kriteria.index')->with('success', 'Kriteria berhasil diupdate');
+        return back();
     }
 
     /**
@@ -122,6 +122,6 @@ class KriteriaController extends Controller
         $kriteria->delete();
 
         notify()->success('Kriteria berhasil dihapus', 'Success');
-        return redirect()->route('kriteria.index');
+        return back();
     }
 }

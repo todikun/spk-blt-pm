@@ -83,7 +83,7 @@
                                         <td>
                                             <a href="{{route('warga.result.show', $item->id)}}"
                                                 class="btn btn-xs btn-detail btn-outline-light">
-                                                <i class="fa fa-eye"></i>
+                                                <i class="fa fa-info-circle"></i>
                                             </a>
                                         </td>
                                     </tr>

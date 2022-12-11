@@ -11,8 +11,8 @@
 
         <div class="form-group col-md-6">
             <label>Nilai</label>
-            <input type="number" name="nilai" class="form-control" placeholder="Max: {{$kriteria->nilai_ideal}}"
-                required>
+            <input type="number" name="nilai" class="form-control" minlength="{{$kriteria->nilai_ideal}}"
+                placeholder="Max: {{$kriteria->nilai_ideal}}" required>
         </div>
 
     </div>

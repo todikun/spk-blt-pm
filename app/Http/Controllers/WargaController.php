@@ -86,8 +86,8 @@ class WargaController extends Controller
      */
     public function edit($id)
     {
-        $kondisi = Kondisi::find($id);
-        $item_kondisi = Kondisi::all($id);
+        $warga = Warga::find($id);
+        return view('pages.data-warga.edit', compact('warga'));
     }
 
     /**
@@ -99,7 +99,21 @@ class WargaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nik' => 'required',
+            'nama' => 'required',
+            'periode' => 'required',
+        ]);
+
+        $warga = Warga::find($id);
+        $warga->update([
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'periode' => $request->periode . '-01',
+        ]);
+
+        notify()->success('Warga berhasil diupdate', 'Success');
+        return back();
     }
 
     /**
@@ -114,7 +128,7 @@ class WargaController extends Controller
         $warga->delete();
 
         notify()->success('Warga berhasil dihapus', 'Success');
-        return redirect()->route('warga.index');
+        return back();
     }
 
     public function search(Request $request)

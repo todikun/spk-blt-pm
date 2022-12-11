@@ -34,7 +34,16 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        {{$kriteria->nama}}, {{$kriteria->nilai_ideal}}
+                        <div class="d-flex text-black-50 col-md-6">
+                            <div>
+                                <p>Kriteria</p>
+                                <p>Nilai ideal</p>
+                            </div>
+                            <div class="mx-auto">
+                                <p> : {{$kriteria->nama}}</p>
+                                <p> : {{$kriteria->nilai_ideal}}</p>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table header-border table-responsive-sm" data-form="deleteForm">
                                 <thead>

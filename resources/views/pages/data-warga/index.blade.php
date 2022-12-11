@@ -73,9 +73,13 @@
                                             <a href="{{route('warga.validasi', ['warga' => $item->id, ''])}}"
                                                 class="btn btn-xs btn-success font-weight-bold"
                                                 onclick="return confirm('Apakah data ini akan divalidasi?')">Validasi</a>
+                                            @else
+                                            <a href="{{route('warga.show', $item->id)}}" class="btn btn-xs btn-info">+
+                                                Kondisi
+                                            </a>
                                             @endif
 
-                                            <a href="{{route('warga.show', $item->id)}}"
+                                            <a href="{{route('warga.edit', $item->id)}}"
                                                 class="btn btn-xs btn-edit btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -122,6 +126,26 @@
             method: 'GET',
             success: function(result) {
                 $('#baseModal').find('.modal-title').html("Tambah Warga");
+                $('#baseModal').find('.modal-body').html(result);
+                $('#baseModal').modal('show');
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    });
+
+    // event button edit
+        $('.btn-edit').on('click', function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+
+        $.ajax({
+            url: url,
+            dataType: 'HTML',
+            method: 'GET',
+            success: function(result) {
+                $('#baseModal').find('.modal-title').html("Edit Warga");
                 $('#baseModal').find('.modal-body').html(result);
                 $('#baseModal').modal('show');
             },

@@ -48,7 +48,7 @@ class AspekController extends Controller
         ]);
 
         notify()->success('Aspek berhasil disimpan', 'Success');
-        return redirect()->route('aspek.index');
+        return back();
     }
 
     /**
@@ -94,7 +94,7 @@ class AspekController extends Controller
         ]);
 
         notify()->success('Aspek berhasil diupdate', 'Success');
-        return redirect()->route('aspek.index');
+        return back();
     }
 
     /**
@@ -109,6 +109,6 @@ class AspekController extends Controller
         $aspek->delete();
 
         notify()->success('Aspek berhasil dihapus', 'Success');
-        return redirect()->route('aspek.index');
+        return back();
     }
 }

@@ -41,9 +41,9 @@
                                         <th width="1%">#</th>
                                         <th>Aspek</th>
                                         <th>Nama</th>
-                                        <th>Nilai Ideal</th>
-                                        <th>Jumlah Kondisi</th>
-                                        <th>Prioritas</th>
+                                        <th width="5%">Nilai Ideal</th>
+                                        <th width="5%">Jumlah Kondisi</th>
+                                        <th width="5%">Prioritas</th>
                                         <th>ACTION</th>
                                     </tr>
                                 </thead>
