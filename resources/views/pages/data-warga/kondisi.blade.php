@@ -9,16 +9,13 @@
                 <option value="">PILIH</option>
                 {{$i = 0}}
                 @foreach ($kondisi as $item)
-                @if ($i < sizeof($data)) 
-                    @if ($item->kriteria->id == $data[$i])
-                    @endif
-                {{$i++}}
-                @else
-                    <option value="{{$item->id}}">
-                        {{$loop->iteration . '. ' .$item->kriteria->nama}}
-                        ({{$item->nama}})
-                    </option>
+                @if ($i >= sizeof($data))
+                <option value="{{$item->id}}">
+                    {{$loop->iteration . '. ' .$item->kriteria->nama}}
+                    ({{$item->nama}})
+                </option>
                 @endif
+                {{$i++}}
                 @endforeach
             </select>
         </div>
