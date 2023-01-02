@@ -7,11 +7,18 @@
             <label>Kriteria</label>
             <select class="form-control" name="kondisiid">
                 <option value="">PILIH</option>
+                {{$i = 0}}
                 @foreach ($kondisi as $item)
-                <option value="{{$item->id}}">
-                    {{$loop->iteration . '. ' .$item->kriteria->nama}}
-                    ({{$item->nama}})
-                </option>
+                @if ($i < sizeof($data)) 
+                    @if ($item->kriteria->id == $data[$i])
+                    @endif
+                {{$i++}}
+                @else
+                    <option value="{{$item->id}}">
+                        {{$loop->iteration . '. ' .$item->kriteria->nama}}
+                        ({{$item->nama}})
+                    </option>
+                @endif
                 @endforeach
             </select>
         </div>

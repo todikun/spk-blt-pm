@@ -15,7 +15,18 @@ class WargaKondisiController extends Controller
         $id = request()->get('warga');
         $warga = Warga::find($id);
         $kondisi = Kondisi::all();
-        return view('pages.data-warga.kondisi', compact('warga', 'kondisi'));
+        $hasil = Hasil::where('wargaid', $id)->get();
+
+        $data = [];
+        for ($i = 0; $i < sizeof($kondisi); $i++) { 
+            for ($j = 0; $j < sizeof($hasil); $j++) { 
+                if ($kondisi[$i]['kriteriaid'] == $hasil[$j]['kriteriaid']) {
+                    array_push($data, $kondisi[$i]['kriteriaid']);
+                }
+            }
+        }
+
+        return view('pages.data-warga.kondisi', compact('warga', 'kondisi', 'data'));
     }
 
     public function store(Request $request)
